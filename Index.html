@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة بادر - للتوظيف والتدريب</title>
+    <style>
+        :root {
+            --primary-color: #0d9488;
+            --primary-dark: #0f766e;
+            --secondary-color: #f0fdf4;
+            --text-color: #1f2937;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+            unicode-bidi: embed;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            direction: rtl;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            unicode-bidi: plaintext;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        h2.section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+            unicode-bidi: plaintext;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #111827;
+            unicode-bidi: plaintext;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            unicode-bidi: plaintext;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+            unicode-bidi: plaintext;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s;
+            unicode-bidi: plaintext;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            direction: rtl;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            unicode-bidi: plaintext;
+            text-align: right;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+        }
+
+        td {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .status-pending {
+            color: #d97706;
+            background: #fef3c7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-block;
+            unicode-bidi: plaintext;
+        }
+
+        .status-rejected {
+            color: #dc2626;
+            background: #fee2e2;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-block;
+            unicode-bidi: plaintext;
+        }
+
+        .status-accepted {
+            color: #16a34a;
+            background: #dcfce7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-block;
+            unicode-bidi: plaintext;
+        }
+
+        .reason {
+            font-size: 0.85rem;
+            color: #991b1b;
+            margin-top: 0.25rem;
+            unicode-bidi: plaintext;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            unicode-bidi: plaintext;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>منصة بادر</h1>
+        <p>بوابتك المتكاملة للتوظيف، التدريب التعاوني، والشهادات الاحترافية</p>
+    </header>
+
+    <nav>
+        <button class="tab-btn active" onclick="switchTab(event, 'public-sector')">القطاع العام</button>
+        <button class="tab-btn" onclick="switchTab(event, 'private-sector')">القطاع الخاص</button>
+        <button class="tab-btn" onclick="switchTab(event, 'temp-jobs')">العمل المؤقت</button>
+        <button class="tab-btn" onclick="switchTab(event, 'coop-training')">التدريب التعاوني</button>
+        <button class="tab-btn" onclick="switchTab(event, 'courses')">الكورسات والدورات</button>
+        <button class="tab-btn" onclick="switchTab(event, 'my-applications')" style="color: #0369a1; background: #e0f2fe;">📋 وظائفي وطلباتي</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- القطاع العام -->
+        <div id="public-sector" class="section-content active">
+            <h2 class="section-title">وظائف القطاع العام (مدنية وعسكرية)</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="badge">حكومي - مدني</span>
+                        <h3>أخصائي إحصاء وبيانات</h3>
+                        <p>وزارة الموارد البشرية والتنمية الاجتماعية - الرياض</p>
+                        <p>تاريخ التقديم: 2026/10/01 - الإغلاق: 2026/10/15</p>
+                    </div>
+                    <button class="btn" onclick="alert('تم تقديم طلبك بنجاح وإضافته إلى قسم (وظائفي)')">التقديم الآن</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <span class="badge">عسكري</span>
+                        <h3>جندي فني تقنية معلومات</h3>
+                        <p>وزارة الدفاع - مختلف المناطق</p>
+                        <p>تاريخ التقديم: 2026/10/05 - الإغلاق: 2026/10/20</p>
+                    </div>
+                    <button class="btn" onclick="alert('تم تقديم طلبك بنجاح وإضافته إلى قسم (وظائفي)')">التقديم الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- القطاع الخاص -->
+        <div id="private-sector" class="section-content">
+            <h2 class="section-title">وظائف القطاع الخاص</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="badge">الشرقية / الخبر</span>
+                        <h3>محلل لوجستي وسلاسل إمداد</h3>
+                        <p>شركة أرامكو السعودية (عقد مباشر أو مقاول)</p>
+                        <p>تاريخ التقديم: 2026/09/25 - الإغلاق: 2026/10/10</p>
+                    </div>
+                    <button class="btn" onclick="alert('تم تقديم طلبك بنجاح وإضافته إلى قسم (وظائفي)')">التقديم الآن</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <span class="badge">تقني</span>
+                        <h3>مطور ومصمم داشبورد Power BI</h3>
+                        <p>شركة التقنيات المتقدمة - الرياض</p>
+                        <p>تاريخ التقديم: 2026/10/02 - الإغلاق: 2026/10/25</p>
+                    </div>
+                    <button class="btn" onclick="alert('تم تقديم طلبك بنجاح وإضافته إلى قسم (وظائفي)')">التقديم الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- العمل المؤقت -->
+        <div id="temp-jobs" class="section-content">
+            <h2 class="section-title">فرص العمل المؤقت والجزئي</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="badge">عن بُعد</span>
+                        <h3>إدخال بيانات وتحقق من السجلات</h3>
+                        <p>مؤسسة التنظيم الرقمي - مشروع موسمي</p>
+                        <p>تاريخ التقديم: متاحة فوراً - الإغلاق: حتى اكتمال العدد</p>
+                    </div>
+                    <button class="btn" onclick="alert('تم تقديم طلبك بنجاح وإضافته إلى قسم (وظائفي)')">التقديم الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- التدريب التعاوني -->
+        <div id="coop-training" class="section-content">
+            <h2 class="section-title">برامج التدريب التعاوني (Co-op)</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="badge">إداري / تقني</span>
+                        <h3>تدريب تعاوني في إدارة العمليات</h3>
+                        <p>مستشفى الدكتور سليمان الحبيب - الرياض</p>
+                        <p>الفتح: 2026/10/01 - الإغلاق: 2026/11/01</p>
+                    </div>
+                    <button class="btn" onclick="alert('تم تقديم طلبك بنجاح وإضافته إلى قسم (وظائفي)')">التقديم الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الكورسات والشهادات الاحترافية -->
+        <div id="courses" class="section-content">
+            <h2 class="section-title">الكورسات التدريبية والشهادات الاحترافية</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="badge">معتمد - 6 أشهر</span>
+                        <h3>دبلوم المهارات الأساسية للحاسب الآلي</h3>
+                        <p>معهد التدريب المهني المعتمد (حضوري / عن بعد)</p>
+                        <p>البدء: بداية كل شهر</p>
+                    </div>
+                    <button class="btn" style="background-color: #0369a1;" onclick="alert('تم التسجيل في الدورة بنجاح')">سجل الآن</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <span class="badge">لغات وتأهيل</span>
+                        <h3>دورة التحضير لاختبار الكفاءة (STEP) واللغة الإنجليزية</h3>
+                        <p>منصة بادر التعليمية</p>
+                        <p>البدء: متاح دائماً</p>
+                    </div>
+                    <button class="btn" style="background-color: #0369a1;" onclick="alert('تم التسجيل في الدورة بنجاح')">سجل الآن</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <span class="badge">شهادة احترافية</span>
+                        <h3>التحضير لشهادة Microsoft Power BI (PL-300)</h3>
+                        <p>مسار احترافي معتمد</p>
+                        <p>البدء: فوري</p>
+                    </div>
+                    <button class="btn" style="background-color: #0369a1;" onclick="alert('تم التسجيل في الدورة بنجاح')">سجل الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم وظائفي -->
+        <div id="my-applications" class="section-content">
+            <h2 class="section-title">قائمة وظائفي (متابعة الطلبات)</h2>
+            <p style="margin-bottom: 1rem; color: #6b7280;">هنا يمكنك متابعة حالة طلبات التوظيف التي قدمتِ عليها، التواريخ، وأسباب الرفض في حال عدم قبول الطلب:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>اسم الوظيفة / الجهة</th>
+                            <th>تاريخ فتح التقديم</th>
+                            <th>تاريخ تقديمك</th>
+                            <th>تاريخ الإغلاق</th>
+                            <th>حالة الطلب والسبب</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>أخصائي إحصاء وبيانات</strong><br><small>وزارة الموارد البشرية</small></td>
+                            <td>2026/10/01</td>
+                            <td>2026/10/02</td>
+                            <td>2026/10/15</td>
+                            <td><span class="status-pending">تحت الطلب</span><br><small>جاري فرز السير الذاتية</small></td>
+                        </tr>
+                        <tr>
+                            <td><strong>محلل لوجستي وسلاسل إمداد</strong><br><small>شركة أرامكو السعودية</small></td>
+                            <td>2026/09/25</td>
+                            <td>2026/09/26</td>
+                            <td>2026/10/10</td>
+                            <td>
+                                <span class="status-rejected">مرفوض من الجهة</span>
+                                <div class="reason">السبب: اكتمال الشواغر واختيار مرشحين ذوي خبرة أعلى في نفس المجال.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>تدريب تعاوني في إدارة العمليات</strong><br><small>مستشفى الدكتور سليمان الحبيب</small></td>
+                            <td>2026/10/01</td>
+                            <td>2026/10/03</td>
+                            <td>2026/11/01</td>
+                            <td><span class="status-accepted">مقبول مبدئياً</span><br><small>بانتظار تحديد موعد المقابلة الشخصية</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة لموقع ومنصة بادر © 2026</p>
+    </footer>
+
+    <script>
+        function switchTab(evt, tabName) {
+            const contents = document.querySelectorAll('.section-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
